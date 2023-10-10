@@ -1,0 +1,6 @@
+//TIME OUT CONSTANT
+export const MAXIMUN_TIMEOUT = 120000
+export const LONG_TIMEOUT = 60000
+export const MEDIUM_TIMEOUT = 30000
+export const SHORT_TIMEOUT = 10000
+export const MINIMUM_TIMEOUT = 3000

@@ -128,4 +128,15 @@ export class BaseControl {
             }
         }
     }
+
+    setDynamicLocator(...texts: string[]) {
+        for (let text of texts) {
+            this.#element = this.#element.replace("%s", text)
+        }
+        return this
+    }
+
+    getLocator() {
+        return this.#element
+    }
 }

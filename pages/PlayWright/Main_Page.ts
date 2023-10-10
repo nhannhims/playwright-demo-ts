@@ -13,9 +13,17 @@ export class Main_Page {
         txtHeading: () => new Control(this.#page, TYPE.ROLE, ROLE.HEADING, { name: 'Installation' })
     }
 
-    async GotoGetStartedPage() {
+    async switchToMainPage(page: Page){
+        this.#page = page
+    }
+
+    async gotoGetStartedPage() {
         await this.#elements.linkGetStarted().get().click()
         await this.#page.waitForLoadState('domcontentloaded', { timeout: 60000 })
         await expect(this.#elements.txtHeading().get()).toBeVisible()
+    }
+
+    async verifyHomePageTitle(){
+        await expect(this.#page).toHaveTitle(/Playwright/)
     }
 }
