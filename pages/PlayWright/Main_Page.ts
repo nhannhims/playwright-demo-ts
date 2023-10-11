@@ -1,6 +1,7 @@
 import { Page, expect } from '@playwright/test'
 import { Control } from '../../supports/core/Control'
 import { ROLE, TYPE } from '../../supports/helps/Settings'
+import projectConfig from '../../supports/project-config'
 export class Main_Page {
     #page: Page
 
@@ -18,6 +19,12 @@ export class Main_Page {
     }
 
     async gotoGetStartedPage() {
+        const environment = process.env.ENV || 'staging'
+        if(environment.toUpperCase() == "PRODUCTION") {
+            console.log(projectConfig.env.production.url)
+            console.log(projectConfig.env.production.account.username)
+            console.log(projectConfig.env.production.account.password)
+        }
         await this.#elements.linkGetStarted().get().click()
         await this.#page.waitForLoadState('domcontentloaded', { timeout: 60000 })
         await expect(this.#elements.txtHeading().get()).toBeVisible()
