@@ -15,15 +15,29 @@ export class Search_Page {
 
     /**
      * Execute verify product is exist in search page
-     * @param product_name : Name of Product
      * Create At: NhanVH
      * Create By: 2023/10/10
      * Update At: N/A
      * Update By: N/A
      * Update Description: N/A
+     * @param product_name : Name of Product
      */
     async verifyProductIsExist(product_name: string) {
         await this.#page.waitForLoadState('domcontentloaded', { timeout: LONG_TIMEOUT })
         await expect(this.#elements.txtProductName().setDynamicLocator(product_name).get()).toBeVisible()
+    }
+
+    /**
+     * Execute click a product > Go to Product Detail
+     * Create At: NhanVH
+     * Create By: 2023/10/11
+     * Update At: N/A
+     * Update By: N/A
+     * Update Description: N/A
+     * @param product_name : Name of Product
+     */
+    async selectProduction(product_name: string) {
+        await this.#page.waitForLoadState('domcontentloaded', { timeout: LONG_TIMEOUT })
+        await this.#elements.txtProductName().setDynamicLocator(product_name).get().click()
     }
 }

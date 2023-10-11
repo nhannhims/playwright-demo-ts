@@ -4,6 +4,8 @@ import { test as base } from '@playwright/test'
 import { Browsers } from '../supports/browsers/Browsers'
 import { Navigations } from '../supports/browsers/Navigations'
 import { Search_Page } from './Flymee/Search_Page'
+import { Product_Detail_Page } from './Flymee/Product_Detail_Page'
+import { Favourite_Page } from './Flymee/Favourite_Page'
 
 type FixturesDefine = {
     Browser: Browsers
@@ -11,6 +13,8 @@ type FixturesDefine = {
     HomePage: Home_Page
     SearchPage: Search_Page
     MainPage: Main_Page
+    ProductDetailPage: Product_Detail_Page
+    FavouritePage: Favourite_Page
 }
 
 export const test = base.extend<FixturesDefine>({
@@ -25,6 +29,12 @@ export const test = base.extend<FixturesDefine>({
     },
     SearchPage: async ({ page }, use) => {
         await use(new Search_Page(page))
+    },
+    ProductDetailPage: async ({ page }, use) => {
+        await use(new Product_Detail_Page(page))
+    },
+    FavouritePage: async ({ page }, use) => {
+        await use(new Favourite_Page(page))
     },
     MainPage: async ({ page }, use) => {
         await use(new Main_Page(page))

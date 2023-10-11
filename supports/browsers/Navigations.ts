@@ -16,15 +16,15 @@ export class Navigations {
         await this.#page.goto(url, { waitUntil: 'domcontentloaded', timeout: LONG_TIMEOUT })
     }
 
-    async Refresh() {
+    async refresh() {
         await this.#page.reload({ waitUntil: 'domcontentloaded', timeout: LONG_TIMEOUT })
     }
 
-    async Back() {
+    async back() {
         await this.#page.goBack({ waitUntil: 'domcontentloaded', timeout: LONG_TIMEOUT })
     }
 
-    async Forward() {
+    async forward() {
         await this.#page.goForward({ waitUntil: 'domcontentloaded', timeout: LONG_TIMEOUT })
     }
 }
