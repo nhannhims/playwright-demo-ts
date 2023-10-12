@@ -6,7 +6,8 @@ export const FLYMEE_SEARCH = Object.freeze({
 
 export const FLYMEE_VERIVY = Object.freeze({
     FAVOURITE_ACTIVE: 'fav-button _active',
-    FAVOURITE_MESSAGE_DELETED: '削除しました'
+    FAVOURITE_MESSAGE_DELETED: '削除しました',
+    CART_NO_PRODUCT: 'カートに商品はありません'
 })
 
 export const FLYMEE_MAIN_MENU = Object.freeze({
@@ -14,4 +15,15 @@ export const FLYMEE_MAIN_MENU = Object.freeze({
     LOGIN: 'ログイン',
     FAVOURITE: 'お気に入り',
     CART: 'カート'
+})
+
+export const FLYMEE_TEST_DATA = Object.freeze({
+    DATA1: {
+        PRODUCT_NAME: 'バット アウトドアチェア（ニューベージュ）',
+        PRODUCT_PRICE: '¥69,960'
+    },
+    DATA2: {
+        PRODUCT_NAME: 'カーブド エスイー',
+        PRODUCT_PRICE: '¥14,300'
+    }
 })

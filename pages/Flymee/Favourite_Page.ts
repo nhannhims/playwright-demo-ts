@@ -26,7 +26,6 @@ export class Favourite_Page {
      * @param product_name : Name of product
      */
     async verifyProductIsExist(product_name: string) {
-        await this.#page.waitForLoadState('domcontentloaded', { timeout: LONG_TIMEOUT })
         await assertVisible(this.#elements.txtProductName(), product_name)
     }
 
@@ -42,6 +41,7 @@ export class Favourite_Page {
     async deleteFavouriteProduct(product_name: string) {
         await this.#elements.txtProductName().setDynamicLocator(product_name).hover()
         await this.#elements.btnDeleteFavourite().setDynamicLocator(product_name).click()
+        await this.#page.waitForLoadState('domcontentloaded', { timeout: LONG_TIMEOUT })
     }
 
     /**
@@ -55,7 +55,6 @@ export class Favourite_Page {
      * @param expected : Message expected you want verify
      */
     async verifyMessageShowOnProduct(product_name: string, expected: string) {
-        await this.#page.waitForLoadState('domcontentloaded', { timeout: LONG_TIMEOUT })
         let actual = await this.#elements.txtDeletedMessage().setDynamicLocator(product_name).getText()
         await assertEqual(actual.trim(), expected)
     }

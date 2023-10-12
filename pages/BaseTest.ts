@@ -6,6 +6,7 @@ import { Navigations } from '../supports/browsers/Navigations'
 import { Search_Page } from './Flymee/Search_Page'
 import { Product_Detail_Page } from './Flymee/Product_Detail_Page'
 import { Favourite_Page } from './Flymee/Favourite_Page'
+import { Cart_Page } from './Flymee/Cart_Page'
 
 type FixturesDefine = {
     Browser: Browsers
@@ -15,6 +16,7 @@ type FixturesDefine = {
     MainPage: Main_Page
     ProductDetailPage: Product_Detail_Page
     FavouritePage: Favourite_Page
+    CartPage: Cart_Page
 }
 
 export const test = base.extend<FixturesDefine>({
@@ -35,6 +37,9 @@ export const test = base.extend<FixturesDefine>({
     },
     FavouritePage: async ({ page }, use) => {
         await use(new Favourite_Page(page))
+    },
+    CartPage: async ({ page }, use) => {
+        await use(new Cart_Page(page))
     },
     MainPage: async ({ page }, use) => {
         await use(new Main_Page(page))

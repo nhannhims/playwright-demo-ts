@@ -1,6 +1,7 @@
 import { Control } from '../../supports/core/Control'
 import { Page } from '@playwright/test'
 import { KEY, ROLE, TYPE } from '../../supports/helps/Settings'
+import { LONG_TIMEOUT } from '../../supports/helps/Constants'
 export class Home_Page {
     #page: Page
 
@@ -29,6 +30,7 @@ export class Home_Page {
         await this.#elements.iptSearch().click()
         await this.#elements.iptSearch().type(product_name)
         await this.#elements.iptSearch().press(KEY.ENTER)
+        await this.#page.waitForLoadState('domcontentloaded', { timeout: LONG_TIMEOUT })
     }
 
     /**
@@ -42,5 +44,6 @@ export class Home_Page {
      */
     async selectMainMenu(menu_name: string) {
         await this.#elements.btnMenuName().setDynamicLocator(menu_name).click()
+        await this.#page.waitForLoadState('domcontentloaded', { timeout: LONG_TIMEOUT })
     }
 }

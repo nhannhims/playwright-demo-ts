@@ -8,6 +8,9 @@ export interface Config {
             url: string
             account: Account
         }
+    },
+    project: {
+        delay: number
     }
 }
 

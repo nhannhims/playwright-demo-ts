@@ -11,7 +11,7 @@ export class Search_Page {
     }
 
     #elements = {
-        txtProductName: () => new Control(this.#page, TYPE.XPATH, "//div[@class='item_name' and contains(text(),'%s')]")
+        txtProductName: () => new Control(this.#page, TYPE.XPATH, '//div[@class="search_result_area"]//div[@class="item_name" and contains(text(),"%s")]')
     }
 
     /**
@@ -24,7 +24,6 @@ export class Search_Page {
      * @param product_name : Name of Product
      */
     async verifyProductIsExist(product_name: string) {
-        await this.#page.waitForLoadState('domcontentloaded', { timeout: LONG_TIMEOUT })
         await assertVisible(this.#elements.txtProductName(), product_name)
     }
 
@@ -38,7 +37,7 @@ export class Search_Page {
      * @param product_name : Name of Product
      */
     async selectProduction(product_name: string) {
-        await this.#page.waitForLoadState('domcontentloaded', { timeout: LONG_TIMEOUT })
         await this.#elements.txtProductName().setDynamicLocator(product_name).click()
+        await this.#page.waitForLoadState('domcontentloaded', { timeout: LONG_TIMEOUT })
     }
 }

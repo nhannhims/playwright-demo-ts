@@ -11,7 +11,11 @@ export class Product_Detail_Page {
     }
 
     #elements = {
-        btnFavourite: () => new Control(this.#page, TYPE.ROLE, ROLE.BUTTON, { name: 'お気に入り' })
+        btnFavourite: () => new Control(this.#page, TYPE.ROLE, ROLE.BUTTON, { name: 'お気に入り' }),
+        btnQuantityMinus: () => new Control(this.#page, TYPE.XPATH, '//div[@class="cart_quantity"]//div[contains(@class,"minus")]'),
+        btnQuantityPlus: () => new Control(this.#page, TYPE.XPATH, '//div[@class="cart_quantity"]//div[contains(@class,"plus")]'),
+        iptQuantity: () => new Control(this.#page, TYPE.XPATH, '//div[@class="cart_quantity"]//div[contains(@class,"quantity")]/input[not(@name="changeUnit")]'),
+        btnAddToCart: () => new Control(this.#page, TYPE.ROLE, ROLE.BUTTON, { name: 'カートに入れる' })
     }
 
     /**
@@ -23,8 +27,8 @@ export class Product_Detail_Page {
      * Description: N/A
      */
     async clickFavouriteIcon() {
-        await this.#page.waitForLoadState('domcontentloaded', { timeout: LONG_TIMEOUT })
         await this.#elements.btnFavourite().click()
+        await this.#page.waitForLoadState('domcontentloaded', { timeout: LONG_TIMEOUT })
     }
 
     /**
@@ -39,5 +43,59 @@ export class Product_Detail_Page {
     async verifyFavouriteIsActive(expected: string) {
         const actual = await this.#elements.btnFavourite().getAttribute(ATTR.CLASS)
         await assertEqual(actual, expected)
+    }
+
+    /**
+     * Execute set quantity for product
+     * Create By: NhanVH
+     * Create At: 2023/10/12
+     * Update By: N/A
+     * Update At: N/A
+     * Description: N/A
+     * @param num : number of quantity product
+     */
+    async setQuantity(num: number) {
+        await this.#page.waitForLoadState('domcontentloaded', { timeout: LONG_TIMEOUT })
+        let currentQty = await this.#elements.iptQuantity().getAttribute(ATTR.VALUE)
+        // Incase Current Quantity  = 1 and set Quantity > 1
+        if (Number(currentQty) == 1 && num > 1) {
+            await this.#elements.btnQuantityPlus().countClick(num - 1)
+        }
+        // Incase Current Quantity > 1 and set Quantity < Current Quantity
+        if (Number(currentQty) > num) {
+            await this.#elements.btnQuantityMinus().countClick(Number(currentQty) - num)
+        }
+        // Incase Current Quantity > 1 and set Quantity > Current Quantity
+        if (Number(currentQty) > 1 && Number(currentQty) < num) {
+            await this.#elements.btnQuantityPlus().countClick(num - Number(currentQty))
+        }
+    }
+
+    /**
+     * Execute Click to Add to cart
+     * Create By: NhanVH
+     * Create At: 2023/10/12
+     * Update By: N/A
+     * Update At: N/A
+     * Description: N/A
+     */
+    async clickAddToCart() {
+        await this.#elements.btnAddToCart().click()
+        await this.#page.waitForURL('https://flymee.jp/cart/', { timeout: LONG_TIMEOUT })
+        await this.#page.waitForLoadState('domcontentloaded', { timeout: LONG_TIMEOUT })
+    }
+
+    /**
+     * Execute Add Product to cart with quantity
+     * Create By: NhanVH
+     * Create At: 2023/10/12
+     * Update By: N/A
+     * Update At: N/A
+     * Description: N/A
+     * @param num : Number of quantity product
+     */
+    async AddProductToCard(num: number) {
+        await this.setQuantity(num)
+        await this.clickAddToCart()
     }
 }

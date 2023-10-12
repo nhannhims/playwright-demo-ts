@@ -16,6 +16,9 @@ const projectConfig: Config = {
                 password: "Admin@123"
             }
         }
+    },
+    project: {
+        delay: 0
     }
 }
 

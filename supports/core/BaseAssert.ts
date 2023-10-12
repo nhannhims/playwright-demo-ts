@@ -15,10 +15,10 @@ export const assertVisible = async (element: Control, dynamic?: string) => {
 export const assertNotVisible = async (element: Control, dynamic?: string) => {
     let visibleFlag = false
     if (dynamic == undefined || dynamic == '') {
-        visibleFlag = await element.checkInVisible()
+        visibleFlag = await element.isNotVisible()
         expect(visibleFlag).toBeTruthy()
     } else {
-        visibleFlag = await element.setDynamicLocator(dynamic).checkInVisible()
+        visibleFlag = await element.setDynamicLocator(dynamic).isNotVisible()
         expect(visibleFlag).toBeTruthy()
     }
 }
