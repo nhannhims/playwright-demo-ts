@@ -38,6 +38,6 @@ export class Search_Page {
      */
     async selectProduction(product_name: string) {
         await this.#page.waitForLoadState('domcontentloaded', { timeout: LONG_TIMEOUT })
-        await this.#elements.txtProductName().setDynamicLocator(product_name).get().click()
+        await this.#elements.txtProductName().setDynamicLocator(product_name).click()
     }
 }

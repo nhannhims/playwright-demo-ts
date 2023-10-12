@@ -1,6 +1,6 @@
 import { Control } from '../../supports/core/Control'
 import { Page } from '@playwright/test'
-import { ROLE, TYPE } from '../../supports/helps/Settings'
+import { KEY, ROLE, TYPE } from '../../supports/helps/Settings'
 export class Home_Page {
     #page: Page
 
@@ -26,8 +26,9 @@ export class Home_Page {
      * @param product_name : Name Of Product
      */
     async searchByProductName(product_name: string) {
-        await this.#elements.iptSearch().get().fill(product_name)
-        await this.#elements.iptSearch().get().press('Enter')
+        await this.#elements.iptSearch().click()
+        await this.#elements.iptSearch().type(product_name)
+        await this.#elements.iptSearch().press(KEY.ENTER)
     }
 
     /**
@@ -40,6 +41,6 @@ export class Home_Page {
      * @param menu_name : Name of Menu
      */
     async selectMainMenu(menu_name: string) {
-        await this.#elements.btnMenuName().setDynamicLocator(menu_name).get().click()
+        await this.#elements.btnMenuName().setDynamicLocator(menu_name).click()
     }
 }

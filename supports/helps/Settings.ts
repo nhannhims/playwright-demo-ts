@@ -17,3 +17,13 @@ export const ROLE = Object.freeze({
     RADIO: "radio",
     CHECKBOX: 'checkbox'
 })
+
+export const KEY = Object.freeze({
+    ENTER: 'Enter'
+})
+
+export const ATTR = Object.freeze({
+    CLASS: 'class',
+    HREF: 'href',
+    VALUE: 'value'
+})

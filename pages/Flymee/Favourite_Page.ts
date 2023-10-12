@@ -8,11 +8,11 @@ export class Favourite_Page {
     constructor(page: Page) {
         this.#page = page
     }
-    //削除しました
+
     #elements = {
         txtProductName: () => new Control(this.#page, TYPE.XPATH, '//div[@class="item_name" and contains(text(),"%s")]'),
-        btnDeleteFavourite: () => new Control(this.#page, TYPE.XPATH, '//div[contains(@class,"js-deleteItem")]'),
-        txtDeletedMessage: () => new Control(this.#page, TYPE.XPATH, '//div[contains(text(),"%s")]/ancestor::li//p')
+        btnDeleteFavourite: () => new Control(this.#page, TYPE.XPATH, '//div[contains(text(),"%s")]/ancestor::li//div[@class="image_delete_cover js-deleteItem"]'),
+        txtDeletedMessage: () => new Control(this.#page, TYPE.XPATH, '//div[contains(text(),"%s")]/ancestor::li//div[@class="favorite_delete_cover js-deletedItem"]/p')
     }
 
     /**
@@ -39,20 +39,32 @@ export class Favourite_Page {
      * @param product_name : Name of product
      */
     async deleteFavouriteProduct(product_name: string) {
-        await this.#elements.txtProductName().setDynamicLocator(product_name).get().hover()
-        await this.#elements.btnDeleteFavourite().get().hover()
-        await this.#elements.btnDeleteFavourite().get().click()
+        await this.#elements.txtProductName().setDynamicLocator(product_name).hover()
+        await this.#elements.btnDeleteFavourite().setDynamicLocator(product_name).click()
     }
 
+    /**
+     * Verify Message Show On Product When Delete Product Favourite
+     * Create At: NhanVH
+     * Create By: 2023/10/12
+     * Update At: N/A
+     * Update By: N/A
+     * Update Description: N/A
+     * @param product_name : Name of Product
+     * @param expected : Message expected you want verify
+     */
     async verifyMessageShowOnProduct(product_name: string, expected: string) {
         await this.#page.waitForLoadState('domcontentloaded', { timeout: LONG_TIMEOUT })
-        await this.#elements.txtDeletedMessage().setDynamicLocator(product_name).get().innerText().then(actual => {
-            expect(actual.trim()).toEqual(expected)
-        })
+        let actual = await this.#elements.txtDeletedMessage().setDynamicLocator(product_name).getText()
+        expect(actual.trim()).toEqual(expected)
     }
 
+    /**
+     * Verify Product Is Not Exist On Favourite Page When deleted
+     * @param product_name : Name Of Product
+     */
     async verifyProductIsNotExist(product_name: string) {
-        let actual = (await this.#elements.txtProductName().setDynamicLocator(product_name).get().count()).toString()
-        expect(actual).toEqual("0")
+        let actual = await this.#elements.txtProductName().setDynamicLocator(product_name).checkInVisible()
+        expect(actual).toBeTruthy()
     }
 }
