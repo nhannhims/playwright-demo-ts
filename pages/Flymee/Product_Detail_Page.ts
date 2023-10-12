@@ -2,6 +2,7 @@ import { Page, expect } from '@playwright/test'
 import { LONG_TIMEOUT } from '../../supports/helps/Constants'
 import { Control } from '../../supports/core/Control'
 import { ATTR, ROLE, TYPE } from '../../supports/helps/Settings'
+import { assertEqual } from '../../supports/core/BaseAssert'
 export class Product_Detail_Page {
     #page: Page
 
@@ -37,6 +38,6 @@ export class Product_Detail_Page {
      */
     async verifyFavouriteIsActive(expected: string) {
         const actual = await this.#elements.btnFavourite().getAttribute(ATTR.CLASS)
-        expect(actual).toEqual(expected)
+        await assertEqual(actual, expected)
     }
 }

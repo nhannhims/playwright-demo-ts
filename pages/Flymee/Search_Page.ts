@@ -2,6 +2,7 @@ import { Page, expect } from '@playwright/test'
 import { LONG_TIMEOUT } from '../../supports/helps/Constants'
 import { Control } from '../../supports/core/Control'
 import { TYPE } from '../../supports/helps/Settings'
+import { assertVisible } from '../../supports/core/BaseAssert'
 export class Search_Page {
     #page: Page
 
@@ -24,7 +25,7 @@ export class Search_Page {
      */
     async verifyProductIsExist(product_name: string) {
         await this.#page.waitForLoadState('domcontentloaded', { timeout: LONG_TIMEOUT })
-        await expect(this.#elements.txtProductName().setDynamicLocator(product_name).get()).toBeVisible()
+        await assertVisible(this.#elements.txtProductName(), product_name)
     }
 
     /**

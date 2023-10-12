@@ -2,6 +2,7 @@ import { Page, expect } from '@playwright/test';
 import { Control } from '../../supports/core/Control';
 import { ROLE, TYPE } from '../../supports/helps/Settings';
 import { LONG_TIMEOUT } from '../../supports/helps/Constants';
+import { assertEqual, assertNotVisible, assertVisible } from '../../supports/core/BaseAssert';
 export class Favourite_Page {
     #page: Page
 
@@ -26,7 +27,7 @@ export class Favourite_Page {
      */
     async verifyProductIsExist(product_name: string) {
         await this.#page.waitForLoadState('domcontentloaded', { timeout: LONG_TIMEOUT })
-        expect(this.#elements.txtProductName().setDynamicLocator(product_name).get()).toBeVisible()
+        await assertVisible(this.#elements.txtProductName(), product_name)
     }
 
     /**
@@ -56,7 +57,7 @@ export class Favourite_Page {
     async verifyMessageShowOnProduct(product_name: string, expected: string) {
         await this.#page.waitForLoadState('domcontentloaded', { timeout: LONG_TIMEOUT })
         let actual = await this.#elements.txtDeletedMessage().setDynamicLocator(product_name).getText()
-        expect(actual.trim()).toEqual(expected)
+        await assertEqual(actual.trim(), expected)
     }
 
     /**
@@ -64,7 +65,6 @@ export class Favourite_Page {
      * @param product_name : Name Of Product
      */
     async verifyProductIsNotExist(product_name: string) {
-        let actual = await this.#elements.txtProductName().setDynamicLocator(product_name).checkInVisible()
-        expect(actual).toBeTruthy()
+        await assertNotVisible(this.#elements.txtProductName(), product_name)
     }
 }
