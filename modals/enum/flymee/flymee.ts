@@ -10,7 +10,19 @@ export const FLYMEE_VERIVY = Object.freeze({
     CART_NO_PRODUCT: 'カートに商品はありません',
     REGISTER_URL: /.*member\/register/,
     WARRANTY_CONTENT: 'FLYMEeではお買い上げいただいた家具・照明に関しまして、一部商品を除き、安心保証をお付けしています。保証対象商品には商品詳細ページに上記の「保証付」アイコンがございますのでそちらをご確認ください。',
-    ABOUT_CONTENT: 'ご納期確定後（ご納期確定メール配信後）のキャンセル・内容変更（追加・変更）は承ることが出来ません。'
+    ABOUT_CONTENT: 'ご納期確定後（ご納期確定メール配信後）のキャンセル・内容変更（追加・変更）は承ることが出来ません。',
+    CATEGORY_TITLE: {
+        TABLEWARE: '食器・テーブルウェア'
+    },
+    COLOR_TITLE: {
+        YELLOW: 'イエロー'
+    },
+    CATEGORY_FILTER: {
+        TABLEWARE: '食器・テーブルウェア'
+    },
+    COLOR_FILTER: {
+        YELLOW: 'イエロー'
+    }
 })
 
 export const FLYMEE_MAIN_MENU = Object.freeze({
@@ -18,6 +30,23 @@ export const FLYMEE_MAIN_MENU = Object.freeze({
     LOGIN: 'ログイン',
     FAVOURITE: 'お気に入り',
     CART: 'カート'
+})
+
+export const FLYMEE_NAV = Object.freeze({
+    CATEGORY: {
+        NAME: 'カテゴリー',
+        OPTION: {
+            TABLEWARE: '食器・テーブルウェア',
+            KITCHEN_STORAGE: 'キッチン収納・食器棚'
+        }
+    },
+    COLOR: {
+        NAME: 'カラー',
+        OPTION: {
+            YELLOW: 'イエロー',
+            SILVER: 'シルバー'
+        }
+    }
 })
 
 export const FLYMEE_TEST_DATA = Object.freeze({

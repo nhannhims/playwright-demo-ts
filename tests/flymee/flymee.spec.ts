@@ -1,4 +1,4 @@
-import { FLYMEE_MAIN_MENU, FLYMEE_SEARCH, FLYMEE_TEST_DATA, FLYMEE_VERIVY } from "../../modals/enum/flymee/flymee";
+import { FLYMEE_MAIN_MENU, FLYMEE_NAV, FLYMEE_SEARCH, FLYMEE_TEST_DATA, FLYMEE_VERIVY } from "../../modals/enum/flymee/flymee";
 import { test } from "../../pages/BaseTest";
 import projectConfig from "../../supports/project-config";
 
@@ -237,6 +237,67 @@ test.describe('Flymee Testscript', () => {
             await AboutPage.switchToNewPage(page)
             await AboutPage.verifyAboutPageTitleIsDisplay()
             await AboutPage.verifyAboutPageContentIsDisplay()
+        })
+    })
+
+    test('TC0009 - Verify Total Price In Cart', async ({ Navigation, HomePage, SearchPage, ProductDetailPage, CartPage }) => {
+        await test.step('Step 1 - Access to Flymee web application', async () => {
+            await Navigation.visit(projectConfig.env.production.url)
+        })
+
+        await test.step('Step 2 - Find a product has name', async () => {
+            await HomePage.searchByProductName(FLYMEE_SEARCH.PRODUCT_HAS_NAME)
+        })
+
+        await test.step('Step 3 - Select that product', async () => {
+            await SearchPage.selectProduction(FLYMEE_SEARCH.PRODUCT_HAS_NAME)
+        })
+
+        await test.step('Step 4 - Click [Add to cart] button', async () => {
+            await ProductDetailPage.AddProductToCard(1)
+        })
+
+        await test.step('Step 5 - Click Image of that product', async () => {
+            await CartPage.selectProduct(FLYMEE_SEARCH.PRODUCT_HAS_NAME)
+        })
+
+        await test.step('Step 6 - Select quantity is 4 and click [Add to cart]', async () => {
+            await ProductDetailPage.AddProductToCard(4)
+        })
+
+        await test.step('Verify Step 6 - Verify Quantity is updated and Total Price', async () => {
+            await CartPage.verifyQuantityProductIsCorrect(FLYMEE_SEARCH.PRODUCT_HAS_NAME, 5)
+            await CartPage.verifyTotalPriceIsCorrect(5, FLYMEE_TEST_DATA.DATA1.PRODUCT_PRICE)
+        })
+    })
+
+    test('TC0010 - Verify Category Name Display', async ({ Navigation, HomePage, CategoryPage }) => {
+        await test.step('Step 1 - Access to Flymee web application', async () => {
+            await Navigation.visit(projectConfig.env.production.url)
+        })
+
+        await test.step('Step 2 - Select [Tableware] in [Category] menu', async () => {
+            await HomePage.selectNavigationMenu(FLYMEE_NAV.CATEGORY.NAME, FLYMEE_NAV.CATEGORY.OPTION.TABLEWARE)
+        })
+
+        await test.step('Step 3 - Verify Category Screen has title & condition filter is correct', async () => {
+            await CategoryPage.verifyCategoryTitleIsCorrect(FLYMEE_VERIVY.CATEGORY_TITLE.TABLEWARE)
+            await CategoryPage.verifyCategoryFilterConditionIsCorrect(FLYMEE_VERIVY.CATEGORY_FILTER.TABLEWARE)
+        })
+    })
+
+    test('TC0011 - Verify Color Name Display', async ({ Navigation, HomePage, ColorPage }) => {
+        await test.step('Step 1 - Access to Flymee web application', async () => {
+            await Navigation.visit(projectConfig.env.production.url)
+        })
+
+        await test.step('Step 2 - Select [Yellow] in [Color] menu', async () => {
+            await HomePage.selectNavigationMenu(FLYMEE_NAV.COLOR.NAME, FLYMEE_NAV.COLOR.OPTION.YELLOW)
+        })
+
+        await test.step('Step 3 - Verify Color Screen has title & condition filter is correct', async () => {
+            await ColorPage.verifyColorTitleIsCorrect(FLYMEE_VERIVY.COLOR_TITLE.YELLOW)
+            await ColorPage.verifyColorFilterConditionIsCorrect(FLYMEE_VERIVY.COLOR_FILTER.YELLOW)
         })
     })
 })

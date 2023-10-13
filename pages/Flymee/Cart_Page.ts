@@ -4,6 +4,7 @@ import { ROLE, TYPE } from '../../supports/helps/Settings'
 import { assertEqual, assertNotVisible, assertVisible } from '../../supports/core/BaseAssert'
 import { LONG_TIMEOUT, MEDIUM_TIMEOUT, SHORT_TIMEOUT } from '../../supports/helps/Constants'
 import { Browsers } from '../../supports/browsers/Browsers'
+import { convertPriceToNumber } from '../../supports/utils/Convert'
 export class Cart_Page {
     #page: Page
 
@@ -19,7 +20,8 @@ export class Cart_Page {
         txtNoProductMsg: () => new Control(this.#page, TYPE.XPATH, '//section[@class="js-cart"]//div[@class="cart_empty_area_inner"]/p'),
         linkRegister: () => new Control(this.#page, TYPE.ROLE, ROLE.LINK, { name: '新規会員登録はこちら' }),
         linkAbout: () => new Control(this.#page, TYPE.ROLE, ROLE.LINK, { name: '返品・交換・キャンセルについて' }),
-        imgProduct: () => new Control(this.#page, TYPE.XPATH, '//div[@class="product_list"]//p[contains(text(),"%s")]/ancestor::li/div[@class="list_image"]/a/img')
+        imgProduct: () => new Control(this.#page, TYPE.XPATH, '//div[@class="product_list"]//p[contains(text(),"%s")]/ancestor::li/div[@class="list_image"]/a/img'),
+        txtTotalPrice: () => new Control(this.#page, TYPE.XPATH, '//div[@class="sub_total"]/span[@class="amount _bold"]')
     }
 
     /**
@@ -151,5 +153,13 @@ export class Cart_Page {
         await Browser.waitForNewTabAvailable(SHORT_TIMEOUT, 1)
         let aboutPage = await Browser.getNewTab()
         await aboutPage.waitForLoadState('domcontentloaded', { timeout: LONG_TIMEOUT })
+    }
+
+    async verifyTotalPriceIsCorrect(quantity: number, price: string){
+        let singlePrice = await convertPriceToNumber(price)
+        let expected = quantity * singlePrice
+        let totalPrice = await this.#elements.txtTotalPrice().getText()
+        let actual = await convertPriceToNumber(totalPrice)
+        await assertEqual(actual, expected)
     }
 }

@@ -15,6 +15,9 @@ export class Home_Page {
         // HEADER - MAIN MENU
         btnMenuName: () => new Control(this.#page, TYPE.XPATH, '//div[@class="header_01"]//ul//a[text()="%s"]'),
         // HEADER - CATEGORY MENU
+        btnNavName: () => new Control(this.#page, TYPE.XPATH, '//nav[@role="navigation"]//ul[@class="header_02_left"]//a[text()="%s"]'),
+        optNavFocus: () => new Control(this.#page, TYPE.XPATH, '//nav[@role="navigation"]//a[text()="%s"]/following-sibling::div/ul'),
+        btnNavOption: () => new Control(this.#page, TYPE.XPATH, '//nav[@role="navigation"]//ul//ul//*[text()="%s"]')
     }
 
     /**
@@ -44,6 +47,23 @@ export class Home_Page {
      */
     async selectMainMenu(menu_name: string) {
         await this.#elements.btnMenuName().setDynamicLocator(menu_name).click()
+        await this.#page.waitForLoadState('domcontentloaded', { timeout: LONG_TIMEOUT })
+    }
+
+    /**
+     * Select Menu Option
+     * Create At: NhanVH
+     * Create By: 2023/10/13
+     * Update At: N/A
+     * Update By: N/A
+     * Update Description: N/A
+     * @param menu_name : Name of Menu
+     * @param option : Option of Menu
+     */
+    async selectNavigationMenu(menu_name: string, option: string) {
+        await this.#elements.btnNavName().setDynamicLocator(menu_name).hover()
+        await this.#elements.optNavFocus().setDynamicLocator(menu_name).hover()
+        await this.#elements.btnNavOption().setDynamicLocator(option).click()
         await this.#page.waitForLoadState('domcontentloaded', { timeout: LONG_TIMEOUT })
     }
 }
