@@ -15,6 +15,10 @@ export class BaseControl {
         this.#iframe = iframe
     }
 
+    /**
+     * Execute get locator
+     * @returns : return to Locator
+     */
     get() {
         if (this.#iframe == null || this.#iframe == '' || this.#iframe == undefined) {
             switch (this.#find_type) {
@@ -129,14 +133,15 @@ export class BaseControl {
         }
     }
 
+    /**
+     * Execute Set Dynamic Locator
+     * @param texts : The texts to set to element (text1, text2, text3) 
+     * @returns : return #element
+     */
     setDynamicLocator(...texts: string[]) {
         for (let text of texts) {
             this.#element = this.#element.replace("%s", text)
         }
         return this
-    }
-
-    getLocator() {
-        return this.#element
     }
 }

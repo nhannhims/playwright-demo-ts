@@ -105,4 +105,17 @@ export class Cart_Page {
     async verifyProductIsNotExist(product_name: string) {
         await assertNotVisible(this.#elements.txtProductName(), product_name)
     }
+
+    /**
+     * Select a product in cart page
+     * Create By: NhanVH
+     * Create At: 2023/10/12
+     * Update By: N/A
+     * Update At: N/A
+     * Description: N/A
+     * @param product_name : Name of product
+     */
+    async selectProduct(product_name: string) {
+
+    }
 }

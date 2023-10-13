@@ -114,17 +114,17 @@ test.describe('Flymee Testscript', () => {
             await ProductDetailPage.clickAddToCart()
         })
 
-        await test.step('Step 5 - Click Delete hyperlink on that product', async() => {
+        await test.step('Step 5 - Click Delete hyperlink on that product', async () => {
             await CartPage.verifyProductIsExit(FLYMEE_TEST_DATA.DATA1.PRODUCT_NAME)
             await CartPage.clickDeleteProduct(FLYMEE_TEST_DATA.DATA1.PRODUCT_NAME)
         })
 
-        await test.step('Step 6 - Incase only one product in cart', async() => {
+        await test.step('Step 6 - Incase only one product in cart', async () => {
             await CartPage.verifyMessageNoProductIsDisplay(FLYMEE_VERIVY.CART_NO_PRODUCT)
             await CartPage.verifyProductIsNotExist(FLYMEE_TEST_DATA.DATA1.PRODUCT_NAME)
         })
 
-        await test.step('Step 6 - Incase more one product in cart', async() => {
+        await test.step('Step 6 - Incase more one product in cart', async () => {
             await Navigation.to(projectConfig.env.production.url)
             await HomePage.searchByProductName(FLYMEE_TEST_DATA.DATA1.PRODUCT_NAME)
             await SearchPage.selectProduction(FLYMEE_TEST_DATA.DATA1.PRODUCT_NAME)
@@ -141,6 +141,21 @@ test.describe('Flymee Testscript', () => {
 
             await CartPage.verifyMessageNoProductIsNotDisplay(FLYMEE_VERIVY.CART_NO_PRODUCT)
             await CartPage.verifyProductIsNotExist(FLYMEE_TEST_DATA.DATA1.PRODUCT_NAME)
+        })
+    })
+
+    test('TC0005 - Verify Register Page is Display & URL', async ({ Navigation, HomePage, RegisterPage }) => {
+        await test.step('Step 1 - Access to Flymee web application', async () => {
+            await Navigation.visit(projectConfig.env.production.url)
+        })
+
+        await test.step('Step 2 - Click Hyperlink Register on Main menu', async () => {
+            await HomePage.selectMainMenu(FLYMEE_MAIN_MENU.MEMBER_REGISTRATION)
+        })
+
+        await test.step('Verify Step 2 - Verify Register Screen & URL', async () => {
+            await RegisterPage.verifyUrlHas(FLYMEE_VERIVY.REGISTER_URL)
+            await RegisterPage.verifyTitleIsDisplay()
         })
     })
 })

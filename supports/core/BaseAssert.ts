@@ -1,24 +1,56 @@
-import { expect } from '@playwright/test'
+import { Page, expect } from '@playwright/test'
 import { Control } from './Control'
+import { SHORT_TIMEOUT } from '../helps/Constants'
+
+/**
+ * Execure check result equal
+ * @param actual : Actual result
+ * @param expected : Expected result
+ */
 export const assertEqual = async (actual: any, expected: any) => {
     expect(actual).toEqual(expected)
 }
 
+/**
+ * Execute check element visible
+ * @param element : Control name declare from Control Class
+ * @param dynamic : (Optional) : Use incase use dynamic locator
+ */
 export const assertVisible = async (element: Control, dynamic?: string) => {
     if (dynamic == undefined || dynamic == '') {
-        expect(element.get()).toBeVisible()
+        await expect(element.get()).toBeVisible()
     } else {
-        expect(element.setDynamicLocator(dynamic).get()).toBeVisible()
+        await expect(element.setDynamicLocator(dynamic).get()).toBeVisible()
     }
 }
 
+/**
+ * Execute check element not visible
+ * @param element : Control name declare from Control Class
+ * @param dynamic : (Optional) : Use incase use dynamic locator
+ */
 export const assertNotVisible = async (element: Control, dynamic?: string) => {
-    let visibleFlag = false
     if (dynamic == undefined || dynamic == '') {
-        visibleFlag = await element.isNotVisible()
-        expect(visibleFlag).toBeTruthy()
+        await expect(element.get()).toBeVisible({ visible: false })
     } else {
-        visibleFlag = await element.setDynamicLocator(dynamic).isNotVisible()
-        expect(visibleFlag).toBeTruthy()
+        await expect(element.setDynamicLocator(dynamic).get()).toBeVisible({ visible: false })
     }
+}
+
+/**
+ * Execute check have url
+ * @param page : Page 
+ * @param url : expected url
+ */
+export const assertHaveUrl = async (page: Page, url: string | RegExp) => {
+    await expect(page).toHaveURL(url, { timeout: SHORT_TIMEOUT })
+}
+
+/**
+ * Execute check do not have url
+ * @param page : Page
+ * @param url : expected url
+ */
+export const assertNotHaveUrl = async (page: Page, url: string | RegExp) => {
+    await expect(page).not.toHaveURL(url, { timeout: SHORT_TIMEOUT })
 }

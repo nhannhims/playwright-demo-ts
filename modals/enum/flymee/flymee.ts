@@ -7,7 +7,8 @@ export const FLYMEE_SEARCH = Object.freeze({
 export const FLYMEE_VERIVY = Object.freeze({
     FAVOURITE_ACTIVE: 'fav-button _active',
     FAVOURITE_MESSAGE_DELETED: '削除しました',
-    CART_NO_PRODUCT: 'カートに商品はありません'
+    CART_NO_PRODUCT: 'カートに商品はありません',
+    REGISTER_URL: /.*member\/register/
 })
 
 export const FLYMEE_MAIN_MENU = Object.freeze({
