@@ -1,4 +1,4 @@
-import { Page, expect } from '@playwright/test'
+import { Page } from '@playwright/test'
 import { LONG_TIMEOUT } from '../../supports/helps/Constants'
 import { Control } from '../../supports/core/Control'
 import { ATTR, ROLE, TYPE } from '../../supports/helps/Settings'
@@ -15,7 +15,8 @@ export class Product_Detail_Page {
         btnQuantityMinus: () => new Control(this.#page, TYPE.XPATH, '//div[@class="cart_quantity"]//div[contains(@class,"minus")]'),
         btnQuantityPlus: () => new Control(this.#page, TYPE.XPATH, '//div[@class="cart_quantity"]//div[contains(@class,"plus")]'),
         iptQuantity: () => new Control(this.#page, TYPE.XPATH, '//div[@class="cart_quantity"]//div[contains(@class,"quantity")]/input[not(@name="changeUnit")]'),
-        btnAddToCart: () => new Control(this.#page, TYPE.ROLE, ROLE.BUTTON, { name: 'カートに入れる' })
+        btnAddToCart: () => new Control(this.#page, TYPE.ROLE, ROLE.BUTTON, { name: 'カートに入れる' }),
+        linkAboutWarranty: () => new Control(this.#page, TYPE.ROLE, ROLE.LINK, { name: '保証について' })
     }
 
     /**
@@ -97,5 +98,18 @@ export class Product_Detail_Page {
     async AddProductToCard(num: number) {
         await this.setQuantity(num)
         await this.clickAddToCart()
+    }
+
+    /**
+     * Execute click warranty hyperlink
+     * Create By: NhanVH
+     * Create At: 2023/10/12
+     * Update By: N/A
+     * Update At: N/A
+     * Description: N/A
+     */
+    async clickAboutWarrantyHyperlink() {
+        await this.#elements.linkAboutWarranty().click()
+        await this.#page.waitForLoadState('domcontentloaded', { timeout: LONG_TIMEOUT })
     }
 }

@@ -8,6 +8,8 @@ import { Product_Detail_Page } from './Flymee/Product_Detail_Page'
 import { Favourite_Page } from './Flymee/Favourite_Page'
 import { Cart_Page } from './Flymee/Cart_Page'
 import { Register_Page } from './Flymee/Register_Page'
+import { Warranty_Page } from './Flymee/Warranty_Page'
+import { About_Page } from './Flymee/About_Page'
 
 type FixturesDefine = {
     Browser: Browsers
@@ -19,6 +21,8 @@ type FixturesDefine = {
     FavouritePage: Favourite_Page
     CartPage: Cart_Page
     RegisterPage: Register_Page
+    WarrantyPage: Warranty_Page
+    AboutPage: About_Page
 }
 
 export const test = base.extend<FixturesDefine>({
@@ -45,6 +49,12 @@ export const test = base.extend<FixturesDefine>({
     },
     RegisterPage: async ({ page }, use) => {
         await use(new Register_Page(page))
+    },
+    WarrantyPage: async ({ page }, use) => {
+        await use(new Warranty_Page(page))
+    },
+    AboutPage: async ({ page }, use) => {
+        await use(new About_Page(page))
     },
     MainPage: async ({ page }, use) => {
         await use(new Main_Page(page))

@@ -1,5 +1,6 @@
 import { Page } from '@playwright/test'
 import { Navigations } from './Navigations'
+import { assertGreaterThan } from '../core/BaseAssert'
 export class Browsers {
     #page: Page
 
@@ -41,5 +42,19 @@ export class Browsers {
     async switchToFront(page: Page) {
         this.#page = page
         this.#page.bringToFront()
+    }
+
+    async waitForNewTabAvailable(timeout: number, current: number) {
+        let num = Math.round(timeout / 1000)
+        let count = 0
+        for (let i = 0; i < num; i++) {
+            count = this.#page.context().pages().length
+            if (count > current) {
+                break
+            } else {
+                await this.#page.waitForTimeout(1000)
+            }
+        }
+        await assertGreaterThan(count, current)
     }
 }

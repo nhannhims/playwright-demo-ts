@@ -1,8 +1,9 @@
 import { Page } from '@playwright/test'
 import { Control } from '../../supports/core/Control'
-import { TYPE } from '../../supports/helps/Settings'
+import { ROLE, TYPE } from '../../supports/helps/Settings'
 import { assertEqual, assertNotVisible, assertVisible } from '../../supports/core/BaseAssert'
-import { LONG_TIMEOUT, MEDIUM_TIMEOUT } from '../../supports/helps/Constants'
+import { LONG_TIMEOUT, MEDIUM_TIMEOUT, SHORT_TIMEOUT } from '../../supports/helps/Constants'
+import { Browsers } from '../../supports/browsers/Browsers'
 export class Cart_Page {
     #page: Page
 
@@ -15,7 +16,10 @@ export class Cart_Page {
         txtQtyProduct: () => new Control(this.#page, TYPE.XPATH, '//div[@class="product_list"]//p[contains(text(),"%s")]/ancestor::li//div[contains(@class,"list_quantity")]/span'),
         txtPriceProduct: () => new Control(this.#page, TYPE.XPATH, '//div[@class="product_list"]//p[contains(text(),"%s")]/ancestor::li//div[contains(@class,"list_price")]'),
         linkDeleteProduct: () => new Control(this.#page, TYPE.XPATH, '//div[@class="product_list"]//p[contains(text(),"%s")]/ancestor::li//button[contains(@class,"delete_button_text")]'),
-        txtNoProductMsg: () => new Control(this.#page, TYPE.XPATH, '//section[@class="js-cart"]//div[@class="cart_empty_area_inner"]/p')
+        txtNoProductMsg: () => new Control(this.#page, TYPE.XPATH, '//section[@class="js-cart"]//div[@class="cart_empty_area_inner"]/p'),
+        linkRegister: () => new Control(this.#page, TYPE.ROLE, ROLE.LINK, { name: '新規会員登録はこちら' }),
+        linkAbout: () => new Control(this.#page, TYPE.ROLE, ROLE.LINK, { name: '返品・交換・キャンセルについて' }),
+        imgProduct: () => new Control(this.#page, TYPE.XPATH, '//div[@class="product_list"]//p[contains(text(),"%s")]/ancestor::li/div[@class="list_image"]/a/img')
     }
 
     /**
@@ -109,13 +113,43 @@ export class Cart_Page {
     /**
      * Select a product in cart page
      * Create By: NhanVH
-     * Create At: 2023/10/12
+     * Create At: 2023/10/13
      * Update By: N/A
      * Update At: N/A
      * Description: N/A
      * @param product_name : Name of product
      */
     async selectProduct(product_name: string) {
+        await this.#elements.imgProduct().setDynamicLocator(product_name).click()
+        await this.#page.waitForLoadState('domcontentloaded', { timeout: LONG_TIMEOUT })
+    }
 
+    /**
+     * Click Register Hyperlink
+     * Create By: NhanVH
+     * Create At: 2023/10/13
+     * Update By: N/A
+     * Update At: N/A
+     * Description: N/A
+     */
+    async clickRegisterHyperlink() {
+        await this.#elements.linkRegister().click()
+        await this.#page.waitForLoadState('domcontentloaded', { timeout: LONG_TIMEOUT })
+    }
+
+    /**
+     * Click About Hyperlink
+     * Create By: NhanVH
+     * Create At: 2023/10/13
+     * Update By: N/A
+     * Update At: N/A
+     * Description: N/A
+     */
+    async clickAboutHyperlink() {
+        await this.#elements.linkAbout().click()
+        let Browser = new Browsers(this.#page)
+        await Browser.waitForNewTabAvailable(SHORT_TIMEOUT, 1)
+        let aboutPage = await Browser.getNewTab()
+        await aboutPage.waitForLoadState('domcontentloaded', { timeout: LONG_TIMEOUT })
     }
 }

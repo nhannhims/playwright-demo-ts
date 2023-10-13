@@ -12,6 +12,15 @@ export const assertEqual = async (actual: any, expected: any) => {
 }
 
 /**
+ * Execute Number 1 greater than Number 2
+ * @param numberOne 
+ * @param numberTwo 
+ */
+export const assertGreaterThan = async (numberOne: number | bigint, numberTwo: number | bigint) => {
+    expect(numberOne).toBeGreaterThan(numberTwo)
+}
+
+/**
  * Execute check element visible
  * @param element : Control name declare from Control Class
  * @param dynamic : (Optional) : Use incase use dynamic locator

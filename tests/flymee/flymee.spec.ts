@@ -144,7 +144,7 @@ test.describe('Flymee Testscript', () => {
         })
     })
 
-    test('TC0005 - Verify Register Page is Display & URL', async ({ Navigation, HomePage, RegisterPage }) => {
+    test('TC0005 - Verify Register Page is Display & URL incase go to at Home Page', async ({ Navigation, HomePage, RegisterPage }) => {
         await test.step('Step 1 - Access to Flymee web application', async () => {
             await Navigation.visit(projectConfig.env.production.url)
         })
@@ -156,6 +156,87 @@ test.describe('Flymee Testscript', () => {
         await test.step('Verify Step 2 - Verify Register Screen & URL', async () => {
             await RegisterPage.verifyUrlHas(FLYMEE_VERIVY.REGISTER_URL)
             await RegisterPage.verifyTitleIsDisplay()
+        })
+    })
+
+    test('TC0006 - Verify Register Page & URL Incase go to at Cart page', async ({ Navigation, HomePage, SearchPage, ProductDetailPage, CartPage, RegisterPage }) => {
+        await test.step('Step 1 - Access to Flymee web application', async () => {
+            await Navigation.visit(projectConfig.env.production.url)
+        })
+
+        await test.step('Step 2 - Find a product has name', async () => {
+            await HomePage.searchByProductName(FLYMEE_SEARCH.PRODUCT_HAS_NAME)
+        })
+
+        await test.step('Step 3 - Select that product & select quantity', async () => {
+            await SearchPage.selectProduction(FLYMEE_SEARCH.PRODUCT_HAS_NAME)
+            await ProductDetailPage.setQuantity(1)
+        })
+
+        await test.step('Step 4 - Click [Add to cart] button', async () => {
+            await ProductDetailPage.clickAddToCart()
+        })
+
+        await test.step('Step 5 - Click [Register] hyperlink', async () => {
+            await CartPage.clickRegisterHyperlink()
+        })
+
+        await test.step('Verify Step 5 - Verify Register screen & URL', async () => {
+            await RegisterPage.verifyUrlHas(FLYMEE_VERIVY.REGISTER_URL)
+            await RegisterPage.verifyTitleIsDisplay()
+        })
+    })
+
+    test('TC0007 - Verify Warranty Page & Content', async ({ Navigation, HomePage, SearchPage, ProductDetailPage, WarrantyPage }) => {
+        await test.step('Step 1 - Access to Flymee web application', async () => {
+            await Navigation.visit(projectConfig.env.production.url)
+        })
+
+        await test.step('Step 2 - Find a product has name', async () => {
+            await HomePage.searchByProductName(FLYMEE_SEARCH.PRODUCT_HAS_NAME)
+        })
+
+        await test.step('Step 3 - Select that product', async () => {
+            await SearchPage.selectProduction(FLYMEE_SEARCH.PRODUCT_HAS_NAME)
+        })
+
+        await test.step('Step 4 - Click [About Warranty] hyperlink', async () => {
+            await ProductDetailPage.clickAboutWarrantyHyperlink()
+        })
+
+        await test.step('Verify Step 4 - Verify Warranty Screen & Content', async () => {
+            await WarrantyPage.verifyWarrantyTitle()
+            await WarrantyPage.verifyWarrantyContent(FLYMEE_VERIVY.WARRANTY_CONTENT)
+        })
+    })
+
+    test('TC0008 - Verify About Page & Content', async ({ Navigation, HomePage, SearchPage, ProductDetailPage, CartPage, AboutPage, Browser }) => {
+        await test.step('Step 1 - Access to Flymee web application', async () => {
+            await Navigation.visit(projectConfig.env.production.url)
+        })
+
+        await test.step('Step 2 - Find a product has name', async () => {
+            await HomePage.searchByProductName(FLYMEE_SEARCH.PRODUCT_HAS_NAME)
+        })
+
+        await test.step('Step 3 - Select that product & select quantity', async () => {
+            await SearchPage.selectProduction(FLYMEE_SEARCH.PRODUCT_HAS_NAME)
+        })
+
+        await test.step('Step 4 - Click [Add to cart] button', async () => {
+            await ProductDetailPage.AddProductToCard(1)
+        })
+
+        await test.step('Step 5 - Click [About ...] hyperlink', async () => {
+            await CartPage.clickAboutHyperlink()
+        })
+
+        await test.step('Verify Step 5 - Verify About Title & Content', async () => {
+            let page = await Browser.getNewTab()
+            await Browser.switchToFront(page)
+            await AboutPage.switchToNewPage(page)
+            await AboutPage.verifyAboutPageTitleIsDisplay()
+            await AboutPage.verifyAboutPageContentIsDisplay()
         })
     })
 })
