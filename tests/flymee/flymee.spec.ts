@@ -1,6 +1,6 @@
-import { FLYMEE_MAIN_MENU, FLYMEE_NAV, FLYMEE_SEARCH, FLYMEE_TEST_DATA, FLYMEE_VERIVY } from "../../modals/enum/flymee/flymee";
-import { test } from "../../pages/BaseTest";
-import projectConfig from "../../supports/project-config";
+import { FLYMEE_MAIN_MENU, FLYMEE_NAV, FLYMEE_SEARCH, FLYMEE_TEST_DATA, FLYMEE_VERIVY } from '../../modals/enum/flymee/flymee'
+import { test } from '../../pages/BaseTest'
+import projectConfig from '../../supports/project-config'
 
 test.describe('Flymee Testscript', () => {
     test('TC0001 - Verify favourite icon', async ({ Navigation, HomePage, SearchPage, ProductDetailPage }) => {
