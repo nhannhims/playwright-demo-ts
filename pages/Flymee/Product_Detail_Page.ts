@@ -60,15 +60,15 @@ export class Product_Detail_Page {
         let currentQty = await this.#elements.iptQuantity().getAttribute(ATTR.VALUE)
         // Incase Current Quantity  = 1 and set Quantity > 1
         if (Number(currentQty) == 1 && num > 1) {
-            await this.#elements.btnQuantityPlus().countClick(num - 1)
+            await this.#elements.btnQuantityPlus().clickCount(num - 1)
         }
         // Incase Current Quantity > 1 and set Quantity < Current Quantity
         if (Number(currentQty) > num) {
-            await this.#elements.btnQuantityMinus().countClick(Number(currentQty) - num)
+            await this.#elements.btnQuantityMinus().clickCount(Number(currentQty) - num)
         }
         // Incase Current Quantity > 1 and set Quantity > Current Quantity
         if (Number(currentQty) > 1 && Number(currentQty) < num) {
-            await this.#elements.btnQuantityPlus().countClick(num - Number(currentQty))
+            await this.#elements.btnQuantityPlus().clickCount(num - Number(currentQty))
         }
     }
 

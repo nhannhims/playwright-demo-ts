@@ -9,7 +9,7 @@ export class Control extends BaseControl {
      */
     async click(delay?: number) {
         if (delay == undefined || delay == 0) {
-            delay = projectConfig.project.delay
+            delay = projectConfig.project.setting.delay
         } else {
             delay = delay
         }
@@ -22,9 +22,9 @@ export class Control extends BaseControl {
      * @param num : Num of Click you want
      * @param delay : (Optional) Delay time (Default: Get from to Project Config)
      */
-    async countClick(num: number, delay?: number) {
+    async clickCount(num: number, delay?: number) {
         if (delay == undefined || delay == 0) {
-            delay = projectConfig.project.delay
+            delay = projectConfig.project.setting.delay
         } else {
             delay = delay
         }
@@ -38,7 +38,7 @@ export class Control extends BaseControl {
      */
     async forceClick(delay?: number) {
         if (delay == undefined || delay == 0) {
-            delay = projectConfig.project.delay
+            delay = projectConfig.project.setting.delay
         } else {
             delay = delay
         }
@@ -51,7 +51,7 @@ export class Control extends BaseControl {
      */
     async rightClick(delay?: number) {
         if (delay == undefined || delay == 0) {
-            delay = projectConfig.project.delay
+            delay = projectConfig.project.setting.delay
         } else {
             delay = delay
         }
@@ -64,7 +64,7 @@ export class Control extends BaseControl {
      */
     async doubleClick(delay?: number) {
         if (delay == undefined || delay == 0) {
-            delay = projectConfig.project.delay
+            delay = projectConfig.project.setting.delay
         } else {
             delay = delay
         }
@@ -86,7 +86,7 @@ export class Control extends BaseControl {
      */
     async keyboardType(text: string, delay?: number) {
         if (delay == undefined || delay == 0) {
-            delay = projectConfig.project.delay
+            delay = projectConfig.project.setting.delay
         } else {
             delay = delay
         }
@@ -108,7 +108,7 @@ export class Control extends BaseControl {
      */
     async press(key: string, delay?: number) {
         if (delay == undefined || delay == 0) {
-            delay = projectConfig.project.delay
+            delay = projectConfig.project.setting.delay
         } else {
             delay = delay
         }

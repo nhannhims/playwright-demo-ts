@@ -15,10 +15,19 @@ const projectConfig: Config = {
                 username: "huunhanstaging",
                 password: "Admin@123"
             }
+        },
+        default: {
+            url: "https://flymee.jp",
+            account: {
+                username: "huunhandefault",
+                password: "Admin@123"
+            }
         }
     },
     project: {
-        delay: 0
+        setting: {
+            delay: 0
+        }
     }
 }
 

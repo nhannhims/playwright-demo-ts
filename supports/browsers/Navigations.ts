@@ -1,5 +1,6 @@
 import { Page } from '@playwright/test'
 import { LONG_TIMEOUT } from '../helps/Constants'
+import projectConfig from '../project-config'
 export class Navigations {
     #page: Page
     constructor(page: Page) {
@@ -10,9 +11,20 @@ export class Navigations {
      * Go to URL but clear cookies
      * @param url
      */
-    async visit(url: string) {
+    async visit(url?: string) {
+        let baseUrl: string
+        if(url == undefined || url == '') {
+            let environment = process.env.ENV
+            if(environment == undefined) {
+                baseUrl = projectConfig.env.default.url
+            } else {
+                baseUrl = projectConfig.env[environment].url
+            }
+        } else {
+            baseUrl = url
+        }
         await this.#page.context().clearCookies()
-        await this.#page.goto(url, { waitUntil: 'domcontentloaded', timeout: LONG_TIMEOUT })
+        await this.#page.goto(baseUrl, { waitUntil: 'domcontentloaded', timeout: LONG_TIMEOUT })
     }
 
     /**

@@ -5,7 +5,7 @@ import projectConfig from '../../supports/project-config'
 test.describe('Flymee Testscript', () => {
     test('TC0001 - Verify favourite icon', async ({ Navigation, HomePage, SearchPage, ProductDetailPage }) => {
         await test.step('Step 1: Acccess to Flymee Web Application', async () => {
-            await Navigation.visit(projectConfig.env.production.url)
+            await Navigation.visit()
         })
 
         await test.step('Step 2: Find a product anymore', async () => {
@@ -31,7 +31,7 @@ test.describe('Flymee Testscript', () => {
 
     test('TC0002 - Verify Cart Page', async ({ Navigation, HomePage, SearchPage, ProductDetailPage, FavouritePage }) => {
         await test.step('Step 1: Access to Flymee web application', async () => {
-            await Navigation.visit(projectConfig.env.production.url)
+            await Navigation.visit()
         })
 
         await test.step('Step 2: Find a product has name ', async () => {
@@ -73,7 +73,7 @@ test.describe('Flymee Testscript', () => {
 
     test('TC0003 - Verify Product in Cart Page is correct', async ({ Navigation, HomePage, SearchPage, ProductDetailPage, CartPage }) => {
         await test.step('Step 1 - Access to Flymee web application', async () => {
-            await Navigation.visit(projectConfig.env.production.url)
+            await Navigation.visit()
         })
 
         await test.step('Step 2 - Find a product has name', async () => {
@@ -98,7 +98,7 @@ test.describe('Flymee Testscript', () => {
 
     test('TC0004 - Verify the product is deleted in Cart Page', async ({ Navigation, HomePage, SearchPage, ProductDetailPage, CartPage }) => {
         await test.step('Step 1 - Access to Flymee web application', async () => {
-            await Navigation.visit(projectConfig.env.production.url)
+            await Navigation.visit()
         })
 
         await test.step('Step 2 - Find a product has name', async () => {
@@ -146,7 +146,7 @@ test.describe('Flymee Testscript', () => {
 
     test('TC0005 - Verify Register Page is Display & URL incase go to at Home Page', async ({ Navigation, HomePage, RegisterPage }) => {
         await test.step('Step 1 - Access to Flymee web application', async () => {
-            await Navigation.visit(projectConfig.env.production.url)
+            await Navigation.visit()
         })
 
         await test.step('Step 2 - Click Hyperlink Register on Main menu', async () => {
@@ -161,7 +161,7 @@ test.describe('Flymee Testscript', () => {
 
     test('TC0006 - Verify Register Page & URL Incase go to at Cart page', async ({ Navigation, HomePage, SearchPage, ProductDetailPage, CartPage, RegisterPage }) => {
         await test.step('Step 1 - Access to Flymee web application', async () => {
-            await Navigation.visit(projectConfig.env.production.url)
+            await Navigation.visit()
         })
 
         await test.step('Step 2 - Find a product has name', async () => {
@@ -189,7 +189,7 @@ test.describe('Flymee Testscript', () => {
 
     test('TC0007 - Verify Warranty Page & Content', async ({ Navigation, HomePage, SearchPage, ProductDetailPage, WarrantyPage }) => {
         await test.step('Step 1 - Access to Flymee web application', async () => {
-            await Navigation.visit(projectConfig.env.production.url)
+            await Navigation.visit()
         })
 
         await test.step('Step 2 - Find a product has name', async () => {
@@ -212,7 +212,7 @@ test.describe('Flymee Testscript', () => {
 
     test('TC0008 - Verify About Page & Content', async ({ Navigation, HomePage, SearchPage, ProductDetailPage, CartPage, AboutPage, Browser }) => {
         await test.step('Step 1 - Access to Flymee web application', async () => {
-            await Navigation.visit(projectConfig.env.production.url)
+            await Navigation.visit()
         })
 
         await test.step('Step 2 - Find a product has name', async () => {
@@ -242,7 +242,7 @@ test.describe('Flymee Testscript', () => {
 
     test('TC0009 - Verify Total Price In Cart', async ({ Navigation, HomePage, SearchPage, ProductDetailPage, CartPage }) => {
         await test.step('Step 1 - Access to Flymee web application', async () => {
-            await Navigation.visit(projectConfig.env.production.url)
+            await Navigation.visit()
         })
 
         await test.step('Step 2 - Find a product has name', async () => {
@@ -273,7 +273,7 @@ test.describe('Flymee Testscript', () => {
 
     test('TC0010 - Verify Category Name Display', async ({ Navigation, HomePage, CategoryPage }) => {
         await test.step('Step 1 - Access to Flymee web application', async () => {
-            await Navigation.visit(projectConfig.env.production.url)
+            await Navigation.visit()
         })
 
         await test.step('Step 2 - Select [Tableware] in [Category] menu', async () => {
@@ -288,7 +288,7 @@ test.describe('Flymee Testscript', () => {
 
     test('TC0011 - Verify Color Name Display', async ({ Navigation, HomePage, ColorPage }) => {
         await test.step('Step 1 - Access to Flymee web application', async () => {
-            await Navigation.visit(projectConfig.env.production.url)
+            await Navigation.visit()
         })
 
         await test.step('Step 2 - Select [Yellow] in [Color] menu', async () => {

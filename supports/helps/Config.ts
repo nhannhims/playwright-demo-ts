@@ -7,14 +7,22 @@ export interface Config {
         staging: {
             url: string
             account: Account
+        },
+        default: {
+            url: string,
+            account: Account
         }
     },
     project: {
-        delay: number
+        setting: Setting
     }
 }
 
 export interface Account {
     username: string
     password: string
+}
+
+export interface Setting {
+    delay: number
 }
